@@ -1,0 +1,6 @@
+models/KLTNModel/
+models/KLTNModel_bidirect/
+models/KLTNModel_other/
+__pycache__/
+*.pb
+*.index
