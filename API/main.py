@@ -4,8 +4,6 @@ for folder in os.listdir('../'):
 
 from string import punctuation
 import nltk
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 
 
 lemma = nltk.wordnet.WordNetLemmatizer()

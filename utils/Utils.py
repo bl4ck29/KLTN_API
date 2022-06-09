@@ -1,8 +1,8 @@
 import re, contractions, numpy, pandas
 
-def IsDateTime(text):
-    patt_mmddyyyy = '[a-z]*..[0-9]*..[0-9]*$'
-    patt_ddmmyyyy = '[0-9]*..[a-z]*..[0-9]*$'
+def IsDatetime(text):
+    patt_mmddyyyy = "[a-z]*..[0-9]*..[0-9]*$"
+    patt_ddmmyyyy = "[0-9]*..[a-z]*..[0-9]*$"
     if (re.match(patt_ddmmyyyy, text)) or (re.match(patt_mmddyyyy, text)):
         return True
     return False
@@ -54,8 +54,8 @@ def Fix(text:str, stopwords:list, punctuation:str, lemma):
             result.append(t)
     return result
 
-from keras.preprocessing.text import one_hot
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import one_hot
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 def EncodeText(text:numpy.array):
     embedding_vector_feature = 40
@@ -74,21 +74,21 @@ def DecodePrediction(val:float):
         return True
     return False
 
-from keras.models import load_model
-model_bidirect = load_model('../models/KLTNModel_bidirect/')
-model_unidirect = load_model('../models/KLTNModel/')
-model_other = load_model('../models/KLTNModel_other/')
-def Predict(inp:numpy.array):
-    result = {
-        'bidirect' : model_bidirect,
-        'unidirect' : model_unidirect,
-        'other' : model_other
-        }
-    for key in result.keys():
-        model = result[key]
-        pred = model.predict(inp)
-        result[key] = list(map(DecodePrediction, pred))
-    return result
+# from tensorflow.keras.models import load_model
+# model_bidirect = load_model('../models/KLTNModel_bidirect/')
+# model_unidirect = load_model('../models/KLTNModel/')
+# model_other = load_model('../models/KLTNModel_other/')
+# def Predict(inp:numpy.array):
+#     result = {
+#         'bidirect' : model_bidirect,
+#         'unidirect' : model_unidirect,
+#         'other' : model_other
+#         }
+#     for key in result.keys():
+#         model = result[key]
+#         pred = model.predict(inp)
+#         result[key] = list(map(DecodePrediction, pred))
+#     return result
 
 def ConvertPredictionForTable(lstText:list, dctPrediction:dict):
     result = []
