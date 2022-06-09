@@ -2,26 +2,13 @@ import sys, os
 for folder in os.listdir('../'):
     sys.path.append('../'+ folder)
 
-import pandas, re, contractions, nltk
+import pandas, nltk
 from string import punctuation
 from gensim.parsing.preprocessing import STOPWORDS
 
 from Utils import IsDatetime, Preprocess
 
-def EncodeData(lst_path:list):
-    fakes = pandas.read_csv('../dataset/Fake.csv')
-    fakes['label'] = 0
-    reals = pandas.read_csv('../dataset/True.csv')
-    reals['label'] = 1
-
-    data = pandas.concat([fakes, reals], ignore_index=True)
-    data['content'] = data['title'] + ' ' + data['text']
-    data = data.drop(['title', 'text'], axis=1)
-    data = data.dropna()
-    data = data.drop_duplicates()
-    data = data.reset_index(drop=True)
-    columns = list(data.columns)
-
+def EncodeData(data:pandas.DataFrame):
     data = FilterDatetime(data)
 
     lemma = nltk.wordnet.WordNetLemmatizer()
