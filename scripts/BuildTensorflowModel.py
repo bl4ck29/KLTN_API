@@ -6,6 +6,9 @@ from tensorflow.keras.optimizers import Adam
 
 class BuildTensorflowModel:
     def __init__(self, voc_size, embedding_vector_feature, sent_len, name='LSTM', compile=True):
+        self.voc_size = voc_size
+        self.embedding_vector_feature = embedding_vector_feature
+        self.sent_len = sent_len
         dct = {
             'LSTM': self.LSTMModel(),
             'BiLSTM' : self.BiLSTMModel(),
@@ -14,10 +17,6 @@ class BuildTensorflowModel:
         self.model = dct[name]
         if compile:
             self.model.compile(optimizer=Adam(1e-4), loss=BinaryCrossentropy(from_logits=True), metrics=['accuracy'])
-        self.voc_size = voc_size
-        self.embedding_vector_feature = embedding_vector_feature
-        self.sent_len = sent_len
-        return self.model
 
     def LSTMModel(self):
         model = Sequential()
@@ -48,7 +47,7 @@ class BuildTensorflowModel:
     def Fit(self, X_train, y_train, X_val, y_val, epochs=15, batch_size=64, early_stop=True):
         if early_stop:
             early_stop = EarlyStopping(monitor='val_accuracy', min_delta=0.01, patience=3, mode='max', restore_best_weights=True)
-        history = self.model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=epochs, batch_size=batch_size, callback=[early_stop])
+        history = self.model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=epochs, batch_size=batch_size, callbacks=[early_stop])
         return history
 
     def SaveModel(self, path):
