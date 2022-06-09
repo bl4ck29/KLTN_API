@@ -1,6 +1,5 @@
-models/KLTNModel/
-models/KLTNModel_bidirect/
-models/KLTNModel_other/
+models/*
 __pycache__/
+assert/*.pkl
 *.pb
 *.index

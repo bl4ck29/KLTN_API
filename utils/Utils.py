@@ -74,21 +74,21 @@ def DecodePrediction(val:float):
         return True
     return False
 
-# from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model
 # model_bidirect = load_model('../models/KLTNModel_bidirect/')
-# model_unidirect = load_model('../models/KLTNModel/')
+model_unidirect = load_model('../models/LSTM/')
 # model_other = load_model('../models/KLTNModel_other/')
-# def Predict(inp:numpy.array):
-#     result = {
-#         'bidirect' : model_bidirect,
-#         'unidirect' : model_unidirect,
-#         'other' : model_other
-#         }
-#     for key in result.keys():
-#         model = result[key]
-#         pred = model.predict(inp)
-#         result[key] = list(map(DecodePrediction, pred))
-#     return result
+def Predict(inp:numpy.array):
+    result = {
+        # 'bidirect' : model_bidirect,
+        'unidirect' : model_unidirect
+        # 'other' : model_other
+        }
+    for key in result.keys():
+        model = result[key]
+        pred = model.predict(inp)
+        result[key] = list(map(DecodePrediction, pred))
+    return result
 
 def ConvertPredictionForTable(lstText:list, dctPrediction:dict):
     result = []

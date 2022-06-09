@@ -1,10 +1,6 @@
-import sys, os
-for folder in os.listdir('../'):
-    sys.path.append('../'+ folder)
-
+import __init__
 from string import punctuation
 import nltk
-
 
 lemma = nltk.wordnet.WordNetLemmatizer()
 with open('../assert/stopword_en.txt') as file:
