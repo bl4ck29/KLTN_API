@@ -1,3 +1,4 @@
+import __init__
 from BuildTensorflowModel import BuildTensorflowModel
 voc_size = 10000
 embedding_vector_feature = 40

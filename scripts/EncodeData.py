@@ -1,12 +1,10 @@
-import sys, os
-for folder in os.listdir('../'):
-    sys.path.append('../'+ folder)
-
 import pandas, nltk
 from string import punctuation
 from gensim.parsing.preprocessing import STOPWORDS
 
 from Utils import IsDatetime, Preprocess
+def Foo():
+    return 'import from EncodeData worked'
 
 def EncodeData(data:pandas.DataFrame):
     data = FilterDatetime(data)
