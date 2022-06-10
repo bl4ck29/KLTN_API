@@ -1,3 +1,5 @@
+def Foo():
+    return 'import from SplitDataset worked'
 def SplitDataset(encoded_text, labels, train_test_split=[0.7, 0.2, 0.1]):
     fakes = encoded_text[ : labels.index(1)]
     label_fakes = labels[ : labels.index(1)]

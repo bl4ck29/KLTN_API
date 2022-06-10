@@ -1,8 +1,3 @@
-import sys, os
-folders = os.listdir('../')
-folders = list(filter(lambda x: '.' not in x, folders))
-for folder in folders:
-    sys.path.append('../'+folder)
 import pandas, nltk
 from string import punctuation
 

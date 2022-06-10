@@ -52,3 +52,5 @@ class BuildTensorflowModel:
 
     def SaveModel(self, path):
         self.model.save(path)
+def Foo():
+    return 'import from SplitDataset worked'
