@@ -2,7 +2,7 @@ def SplitDataset(encoded_text, labels, train_test_split=[0.7, 0.2, 0.1]):
     fakes = encoded_text[ : labels.index(1)]
     label_fakes = labels[ : labels.index(1)]
     reals = encoded_text[labels.index(1) : ]
-    label_reals = labels[ : labels.index(1)]
+    label_reals = labels[labels.index(1) : ]
 
     data = [fakes, reals]
     labels = [label_fakes, label_reals]

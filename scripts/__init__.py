@@ -1,6 +1,3 @@
-import subprocess
-subprocess.run('pip3 install -r ../assert/requirements.txt')
-
 import nltk
 nltk.download('wordnet')
 nltk.download('omw-1.4')

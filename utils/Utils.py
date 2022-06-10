@@ -71,8 +71,8 @@ def Preprocess(data, stopwords:list, punctuation:str, lemmatizer):
 
 def DecodePrediction(val:float):
     if val > 0.5:
-        return True
-    return False
+        return 1
+    return 0
 
 from tensorflow.keras.models import load_model
 # model_bidirect = load_model('../models/KLTNModel_bidirect/')
