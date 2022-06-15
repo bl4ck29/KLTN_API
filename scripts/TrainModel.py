@@ -34,14 +34,14 @@ def EvaluateModel(model):
         'recall_score': recall_score(y_test, result),
         'precision_score': precision_score(y_test, result),
     }
-    confusion_matrix = confusion_matrix(test_labels, model_pred)
-    return dct, confusion_matrix
+    cm = confusion_matrix(y_test, result)
+    return dct, cm
 
 def LoadModel(path):
     return load_model(path)
 
 if __name__ == '__main__':
-    # main()
-    model = LoadModel('../models/LSTM/')
-    dct, cm = EvaluateModel(model)
-    print(dct)
+    main()
+    # model = LoadModel('../models/LSTM/')
+    # dct, cm = EvaluateModel(model)
+    # print(dct)
