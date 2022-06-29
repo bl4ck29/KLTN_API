@@ -71,18 +71,18 @@ def Preprocess(data, stopwords:list, punctuation:str, lemmatizer):
 
 def DecodePrediction(val:float):
     if val > 0.5:
-        return True
-    return False
+        return 1
+    return 0
 
 from tensorflow.keras.models import load_model
-# model_bidirect = load_model('../models/KLTNModel_bidirect/')
+model_bidirect = load_model('../models/BiLSTM/')
 model_unidirect = load_model('../models/LSTM/')
-# model_other = load_model('../models/KLTNModel_other/')
+model_other = load_model('../models/tensorflow/')
 def Predict(inp:numpy.array):
     result = {
-        # 'bidirect' : model_bidirect,
-        'unidirect' : model_unidirect
-        # 'other' : model_other
+        'bidirect' : model_bidirect,
+        'unidirect' : model_unidirect,
+        'tensorflow suggest' : model_other
         }
     for key in result.keys():
         model = result[key]

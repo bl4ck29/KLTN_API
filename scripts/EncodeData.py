@@ -1,10 +1,8 @@
 import pandas, nltk
 from string import punctuation
-from gensim.parsing.preprocessing import STOPWORDS
 
 from Utils import IsDatetime, Preprocess
-def Foo():
-    return 'import from EncodeData worked'
+from SplitDataset import SplitDataset
 
 def EncodeData(data:pandas.DataFrame):
     data = FilterDatetime(data)
@@ -20,3 +18,28 @@ def EncodeData(data:pandas.DataFrame):
 def FilterDatetime(data:pandas.DataFrame):
     conditions = [IsDatetime(row['date'].lower().strip()) for i, row in data.iterrows()]
     return data.loc[conditions]
+
+def main():
+    fakes = pandas.read_csv('../dataset/Fake.csv')
+    fakes['label'] = 0
+    reals = pandas.read_csv('../dataset/True.csv')
+    reals['label'] = 1
+
+    data = pandas.concat([fakes, reals], ignore_index=True)
+    data['content'] = data['title'] + ' ' + data['text']
+    data = data.drop(['title', 'text'], axis=1)
+    data = data.dropna()
+    data = data.drop_duplicates()
+    data = data.reset_index(drop=True)
+
+    encoded_text, labels = EncodeData(data)
+
+    X_train, X_val, X_test, y_train, y_val, y_test = SplitDataset(encoded_text, labels)
+    import numpy
+    X_train, X_val, X_test, y_train, y_val, y_test = numpy.array(X_train), numpy.array(X_val), numpy.array(X_test), numpy.array(y_train), numpy.array(y_val), numpy.array(y_test)
+    import pickle
+    with open('../assert/TrainData.pkl', 'wb') as file:
+        pickle.dump((X_train, y_train, X_val, y_val), file)
+    with open('../assert/TestData.pkl', 'wb') as file:
+        pickle.dump((X_test, y_test), file)
+main()        
